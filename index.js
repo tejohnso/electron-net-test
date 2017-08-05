@@ -30,7 +30,7 @@ app.on('ready', () => {
 function sendRequest(requestor) {
   return new Promise(res=>{
     const request = requestor.fn(opts, resp=>{
-      resp.on("data", ()=>{});
+      resp.resume();
       resp.on("end", res);
       log(`${resp.statusCode} response received from ${requestor.description.whiteBold} for ${opts.hostname}`.green);
     });
