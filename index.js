@@ -3,9 +3,12 @@ const {log} = console;
 const {app, net} = require('electron');
 const {name, version} = require("./package");
 const https = require("https");
+const breakNodeJS = false;
 const opts = {
   hostname: "www.googleapis.com",
   protocol: "https:",
+  agent: breakNodeJS ? false : null,
+  ca: breakNodeJS ? "a" : null,
   path: "/storage/v1/b/risevision-display-notifications/o/ZRQCTDDB76YC%2Fcontent.json?alt=media&ifGenerationNotMatch=1501863573011532"
 };
 const requestors = [
