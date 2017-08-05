@@ -1,0 +1,16 @@
+{
+  "name": "Electron-net-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Tyler Johnson <mail@tyler-johnson.ca> (http://github.com/tejohnso)",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "electron": "^1.6.11",
+    "got": "^7.1.0"
+  }
+}
