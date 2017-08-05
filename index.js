@@ -16,6 +16,21 @@ const requestors = [
   {fn: https.request, description: "NodeJS"},
 ];
 
+app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+  log(event);
+  log(url)
+  log(error);
+  event.preventDefault()
+  callback(true)
+});
+
+app.on('select-client-certificate', (event, webContents, url, list, callback) => {
+  log(event);
+  log(url)
+  event.preventDefault()
+  callback()
+})
+
 app.on('ready', () => {
   log(`${name} ${version}\n`);
   log(`Sending two requests, both within Electron:`.whiteUnderline);
@@ -34,7 +49,15 @@ function sendRequest(requestor) {
       resp.on("end", res);
       log(`${resp.statusCode} response received from ${requestor.description.whiteBold} for ${opts.hostname}`.green);
     });
-    request.end();
+
     request.on("error", err=>{log(`Error from ${requestor.description.whiteBold}`.green), log(err), res()});
+    request.on("aborted", err=>{log(`Aborted from ${requestor.description.whiteBold}`.green)});
+    request.on("abort", err=>{log(`Abort from ${requestor.description.whiteBold}`.green)});
+    request.on("continue", err=>{log(`Continue from ${requestor.description.whiteBold}`.green)});
+    request.on("connect", err=>{log(`Connected to ${requestor.description.whiteBold}`.green)});
+    request.on("socket", err=>{log(`Socket assigned for ${requestor.description.whiteBold}`.green)});
+
+    log(`Requesting ${opts.hostname} from ${requestor.description.whiteBold}`.green);
+    request.end();
   });
 }
