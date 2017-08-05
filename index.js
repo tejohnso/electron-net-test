@@ -1,4 +1,5 @@
 require("./color");
+const {log} = console;
 const {app, net} = require('electron');
 const {name, version} = require("./package");
 const https = require("https");
@@ -13,9 +14,9 @@ const requestors = [
 ];
 
 app.on('ready', () => {
-  console.log(`${name} ${version}\n`);
-  console.log(`Sending two requests, both within Electron:`.whiteUnderline);
-  console.log(` - one with chromium's networking library
+  log(`${name} ${version}\n`);
+  log(`Sending two requests, both within Electron:`.whiteUnderline);
+  log(` - one with chromium's networking library
  - one with node's networking library
 `.whiteBold);
 
@@ -28,9 +29,9 @@ function sendRequest(requestor) {
     const request = requestor.fn(opts, resp=>{
       resp.on("data", ()=>{});
       resp.on("end", res);
-      console.log(`${resp.statusCode} response received from ${requestor.description.whiteBold} for ${opts.hostname}`.green);
+      log(`${resp.statusCode} response received from ${requestor.description.whiteBold} for ${opts.hostname}`.green);
     });
     request.end();
-    request.on("error", console.error);
+    request.on("error", err=>{log(`Error from ${requestor.description.whiteBold}`.green), log(err), res()});
   });
-};
+}

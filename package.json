@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint *.js",
     "start": "electron ."
   },
   "author": "Tyler Johnson <mail@tyler-johnson.ca> (http://github.com/tejohnso)",
@@ -11,6 +12,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "electron": "^1.6.11",
+    "eslint": "^4.3.0",
     "got": "^7.1.0"
   }
 }
