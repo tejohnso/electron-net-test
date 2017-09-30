@@ -13,7 +13,7 @@ const opts = {
 };
 const requestors = [
   {fn: net.request, description: "Chromium"},
-  {fn: https.request, description: "NodeJS"},
+//  {fn: https.request, description: "NodeJS"},
 ];
 
 app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
@@ -51,13 +51,14 @@ function sendRequest(requestor) {
     });
 
     request.on("error", err=>{log(`Error from ${requestor.description.whiteBold}`.green), log(err), res()});
-    request.on("aborted", err=>{log(`Aborted from ${requestor.description.whiteBold}`.green)});
-    request.on("abort", err=>{log(`Abort from ${requestor.description.whiteBold}`.green)});
-    request.on("continue", err=>{log(`Continue from ${requestor.description.whiteBold}`.green)});
-    request.on("connect", err=>{log(`Connected to ${requestor.description.whiteBold}`.green)});
-    request.on("socket", err=>{log(`Socket assigned for ${requestor.description.whiteBold}`.green)});
+    request.on("aborted", ()=>log(`Aborted from ${requestor.description.whiteBold}`.green));
+    request.on("abort", ()=>log(`Abort from ${requestor.description.whiteBold}`.green));
+    request.on("continue", ()=>log(`Continue from ${requestor.description.whiteBold}`.green));
+    request.on("connect", ()=>log(`Connected to ${requestor.description.whiteBold}`.green));
+    request.on("socket", ()=>log(`Socket assigned for ${requestor.description.whiteBold}`.green));
 
     log(`Requesting ${opts.hostname} from ${requestor.description.whiteBold}`.green);
+    debugger;
     request.end();
   });
 }
