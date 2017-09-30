@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "colors": "^1.1.2",
-    "electron": "^1.6.11",
+    "electron": "^1.7.8",
     "eslint": "^4.3.0",
     "got": "^7.1.0"
   }
